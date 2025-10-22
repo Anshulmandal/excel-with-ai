@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT in Excel Course: Automate Formulas and VBA</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for aesthetic appeal -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom CSS for a sleek, dark aesthetic */
+        :root {
+            --primary-color: #0d1117; /* Dark background */
+            --accent-color: #10b981; /* Emerald/Green for ChatGPT theme */
+            --text-color: #f1f5f9; /* Light text */
+            --card-bg: #161b22; /* Slightly lighter card background */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+        .cta-button {
+            background-color: var(--accent-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5); /* Green glow */
+        }
+        .icon-feature {
+            background-color: #161b22; /* Slightly darker base for features */
+            border: 1px solid #30363d;
+        }
+        /* Sticky CTA Button (hidden on large screens as the main form is visible) */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            padding: 0.75rem 1rem;
+            background-color: rgba(13, 17, 23, 0.95); /* Semi-transparent dark overlay */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+        }
+        /* Style for the subtle AI glow effect */
+        .ai-glow {
+            text-shadow: 0 0 5px rgba(16, 185, 129, 0.7); /* Green glow */
+        }
+        /* Hide sticky CTA on MD+ screens */
+        @media (min-width: 768px) {
+            .sticky-cta {
+                display: none;
+            }
+        }
+        /* Custom class for WhatsApp button to distinguish it */
+        .whatsapp-button {
+            background-color: #25d366; /* WhatsApp Green */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .whatsapp-button:hover {
+            background-color: #1fad51;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+        }
+        /* Countdown styling */
+        .countdown-box {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Sticky CTA Bar for Mobile -->
+    <div class="sticky-cta md:hidden">
+        <!-- Linking directly to WhatsApp with pre-filled message -->
+        <a href="https://wa.me/919792656522?text=Hello%20Ankur%2C%20I%20would%20like%20to%20enroll%20in%20the%20ChatGPT%20for%20Excel%205-Day%20Workshop.%20Please%20share%20payment%20details." target="_blank" class="whatsapp-button w-full text-center py-3 rounded-xl font-bold text-white shadow-lg flex items-center justify-center gap-2">
+            <!-- Inline SVG for WhatsApp Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-whatsapp"><path d="M19.05 4.95A10 10 0 0 0 12 2C6.477 2 2 6.477 2 12s4.477 10 10 10c1.725 0 3.336-.452 4.757-1.242l3.435 1.05-1.077-3.327A9.957 9.957 0 0 0 22 12c0-5.523-4.477-10-10-10zM17 15.69c-.19 0-.42-.06-.61-.16l-.08-.04c-.1-.05-.22-.09-.34-.09-.12 0-.25.04-.37.11l-.09.05c-.1.05-.24.11-.38.11s-.28-.05-.41-.12l-.08-.04c-.1-.05-.2-.07-.3-.07-.22 0-.4.1-.5.2-.13.1-.22.3-.22.54v.17c0 .24-.1.46-.23.6-.14.15-.35.25-.57.25s-.43-.1-.57-.25c-.13-.14-.23-.36-.23-.6v-2.06c0-.12.02-.24.06-.36.04-.12.1-.24.18-.35.08-.12.19-.22.3-.3.12-.08.25-.13.38-.13.3 0 .58.2.7.47.1.18.16.38.16.6v.05c0 .24.08.47.24.6.17.15.4.25.64.25.24 0 .46-.1.6-.24.14-.15.22-.38.22-.62v-.05c0-.24.07-.46.2-.6.13-.15.3-.24.5-.24.23 0 .45.1.58.24.13.15.2.37.2.6v2.06c0 .24-.1.47-.23.6-.13.15-.3.25-.5.25z"/></svg>
+            Enroll via WhatsApp - ₹99
+        </a>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Header / Logo -->
+        <header class="flex justify-between items-center py-4 mb-8">
+            <div class="flex items-center gap-3">
+                <!-- 1. INSTITUTE LOGO: Replace the source URL with your actual logo file reference -->
+                <img id="instituteLogo" 
+                     src="logo.jpg" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/40x40/10b981/ffffff?text=LOGO'" 
+                     alt="Institute Logo" 
+                     class="w-10 h-10 object-contain rounded-lg">
+                     
+                <h1 class="text-2xl font-extrabold text-white tracking-tight">
+                    CHATGPT <span class="text-green-500">in</span> EXCEL
+                </h1>
+            </div>
+            <!-- Linking directly to WhatsApp with pre-filled message -->
+            <a href="https://wa.me/919792656522?text=Hello%20Ankur%2C%20I%20would%20like%20to%20enroll%20in%20the%20ChatGPT%20for%20Excel%205-Day%20Workshop.%20Please%20share%20payment%20details." target="_blank" class="hidden sm:inline-block text-sm font-semibold text-green-400 hover:text-green-300 transition duration-200">
+                Register Today (WhatsApp)
+            </a>
+        </header>
+
+        <!-- 1. Hero Section -->
+        <section class="text-center py-16 sm:py-24 bg-card-bg rounded-3xl mb-16 shadow-2xl">
+            <div class="max-w-4xl mx-auto px-4">
+                <!-- H1 Headline -->
+                <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4 leading-tight">
+                    <span class="block text-gray-300">Generate Any Formula.</span>
+                    <span class="block ai-glow text-green-400">Master Excel with ChatGPT in 5 Days.</span>
+                </h2>
+                <!-- Sub-Headline -->
+                <p class="text-xl sm:text-2xl text-gray-400 font-light mb-8 max-w-3xl mx-auto">
+                    **New November Schedule!** The complete course to eliminate manual work: Learn to generate complex formulas, clean data, create VBA macros, and automate your entire workflow using simple textChatGPT prompts.
+                </p>
+
+                <!-- Countdown Timer -->
+                <div id="countdownContainer" class="mb-12">
+                    <p class="text-xl font-bold text-green-300 mb-4">
+                        Class Starts: <span class="text-white bg-green-700/50 px-2 py-1 rounded-md">Saturday, November 1, 2025</span>
+                    </p>
+                    <p class="text-lg font-semibold text-gray-400 mb-6">
+                        Schedule: **Saturdays & Sundays** throughout November (5 Sessions Total)
+                    </p>
+                    <div id="countdown" class="flex justify-center gap-4 text-white">
+                        <!-- Countdown elements will be injected here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Urgency Bar & Main CTA -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+                    <!-- Linking directly to WhatsApp with pre-filled message -->
+                    <a href="https://wa.me/919792656522?text=Hello%20Ankur%2C%20I%20would%20like%20to%20enroll%20in%20the%20ChatGPT%20for%20Excel%205-Day%20Workshop.%20Please%20share%20payment%20details." target="_blank" class="whatsapp-button text-white py-4 px-12 rounded-xl text-xl font-bold shadow-xl hover:shadow-green-500/50 flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-whatsapp"><path d="M19.05 4.95A10 10 0 0 0 12 2C6.477 2 2 6.477 2 12s4.477 10 10 10c1.725 0 3.336-.452 4.757-1.242l3.435 1.05-1.077-3.327A9.957 9.957 0 0 0 22 12c0-5.523-4.477-10-10-10zM17 15.69c-.19 0-.42-.06-.61-.16l-.08-.04c-.1-.05-.22-.09-.34-.09-.12 0-.25.04-.37.11l-.09.05c-.1.05-.24.11-.38.11s-.28-.05-.41-.12l-.08-.04c-.1-.05-.2-.07-.3-.07-.22 0-.4.1-.5.2-.13.1-.22.3-.22.54v.17c0 .24-.1.46-.23.6-.14.15-.35.25-.57.25s-.43-.1-.57-.25c-.13-.14-.23-.36-.23-.6v-2.06c0-.12.02-.24.06-.36.04-.12.1-.24.18-.35.08-.12.19-.22.3-.3.12-.08.25-.13.38-.13.3 0 .58.2.7.47.1.18.16.38.16.6v.05c0 .24.08.47.24.6.17.15.4.25.64.25.24 0 .46-.1.6-.24.14-.15.22-.38.22-.62v-.05c0-.24.07-.46.2-.6.13-.15.3-.24.5-.24.23 0 .45.1.58.24.13.15.2.37.2.6v2.06c0 .24-.1.47-.23.6-.13.15-.3.25-.5.25z"/></svg>
+                        Secure Your Spot Now for ₹99
+                    </a>
+                </div>
+                <p class="text-sm font-semibold text-red-400">
+                    🔥 Limited Seats: Only 25 Spots Remaining! | 5-Day Online Workshop
+                </p>
+                
+                <!-- Added Header Image - HERO IMAGE -->
+                <img src="heder.png" alt="5 Days Online Workshop - AI with Excel" class="mx-auto mt-10 w-full max-w-xl rounded-2xl shadow-2xl">
+            </div>
+        </section>
+
+        <!-- 2. The Problem & Core Value -->
+        <section class="mb-20">
+            <h3 class="text-3xl sm:text-4xl font-bold text-center mb-12">
+                Turn Complex Tasks into Simple Prompts
+            </h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Value Point 1: Formulas -->
+                <div class="p-6 icon-feature rounded-xl shadow-lg">
+                    <i data-lucide="zap" class="w-8 h-8 text-green-400 mb-3"></i>
+                    <h4 class="text-xl font-semibold mb-2">Instant Formulas</h4>
+                    <p class="text-gray-400">Stop wasting time on {SUMIF}, {VLOOKUP}, and {INDEX-MATCH}. Just tell {ChatGPT} what you need, and paste the result.</p>
+                </div>
+                <!-- Value Point 2: VBA -->
+                <div class="p-6 icon-feature rounded-xl shadow-lg">
+                    <i data-lucide="code" class="w-8 h-8 text-green-400 mb-3"></i>
+                    <h4 class="text-xl font-semibold mb-2">Generate VBA Macros</h4>
+                    <p class="text-gray-400">No coding required. Use {ChatGPT} to write custom macros for repetitive tasks like report formatting or bulk data processing.</p>
+                </div>
+                <!-- Value Point 3: Data Prep -->
+                <div class="p-6 icon-feature rounded-xl shadow-lg">
+                    <i data-lucide="align-start-horizontal" class="w-8 h-8 text-green-400 mb-3"></i>
+                    <h4 class="text-xl font-semibold mb-2">Data Cleaning Power</h4>
+                    <p class="text-gray-400">Quickly learn to convert text to numbers, remove special characters, and standardize formats using AI-generated steps and formulas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. What You Will Learn (Curriculum) -->
+        <section class="mb-20">
+            <h3 class="text-3xl sm:text-4xl font-bold text-center mb-12">
+                The 12-Lesson ChatGPT in Excel Roadmap
+            </h3>
+            
+            <!-- Added Syllabus Image - SYLLABUS IMAGE -->
+            <img src="syl.jpeg" alt="ChatGPT in Excel Course Curriculum" class="mx-auto mb-10 w-full max-w-lg rounded-xl shadow-xl border border-green-700/50">
+
+            <div class="max-w-5xl mx-auto space-y-10">
+                
+                <!-- Group 1: The ChatGPT Foundation (Lessons 1-3) -->
+                <div>
+                    <h4 class="text-2xl font-bold text-green-400 mb-4 flex items-center gap-3">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i> Part I: Setup and Data Preparation
+                    </h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">1.</span>
+                            <div>
+                                <strong class="text-white">Course Overview & Value:</strong> Why should and what you will learn inside the $\text{ChatGPT}$ in $\text{Excel}$ course.
+                            </div>
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">2.</span>
+                            <div>
+                                <strong class="text-white">Introduction to {ChatGPT} for {Excel}:</strong> Key settings and best practices for prompting.
+                            </div>
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">3.</span>
+                            <div>
+                                <strong class="text-white">Clean Formatting:</strong> Use AI to instantly change Excel Data Format (dates, currencies, alignment).
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Group 2: Advanced Formula Automation (Lessons 4-10) -->
+                <div>
+                    <h4 class="text-2xl font-bold text-green-400 mb-4 flex items-center gap-3">
+                        <i data-lucide="layers-3" class="w-6 h-6"></i> Part II: Advanced Formula and Logic
+                    </h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">4.</span>
+                            <strong class="text-white">Text Manipulation:</strong> Get formulas to remove special characters from text strings.
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">5.</span>
+                            <strong class="text-white">Paste Special Mastery:</strong> Get {ChatGPT} to outline the exact steps for using {Paste Special} effectively.
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">6.</span>
+                            <strong class="text-white">Text-to-Number Conversion:</strong> Get simple, reliable steps to convert text stored as numbers back to numerical format.
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">7.</span>
+                            <strong class="text-white">Simple {SUM} Formula:</strong> Generate basic {SUM} formulas tailored to specific ranges.
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">8.</span>
+                            <strong class="text-white">Conditional Counting:</strong> Generate {COUNTIF} and {COUNTIFS} formulas based on complex conditions.
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">9.</span>
+                            <strong class="text-white">Date-Based Conditions:</strong> Get {Date Conditional Formulas} for reporting within specific time periods.
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">10.</span>
+                            <strong class="text-white">Multi-Condition Totaling:</strong> Learn to get Text and Date Condition Wise Totals {SUMIFS} instantly.
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">11.</span>
+                            <strong class="text-white">Advanced Counting:</strong> Get Counting Format with Date Condition for complex reporting.
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Group 3: Advanced Automation & Q&A (Lessons 11-12) -->
+                <div>
+                    <h4 class="text-2xl font-bold text-green-400 mb-4 flex items-center gap-3">
+                        <i data-lucide="terminal" class="w-6 h-6"></i> Part III: Automation and Mastery
+                    </h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">12.</span>
+                            <strong class="text-white">{Excel} {VBA} Automation:</strong> Get ready-to-use {Excel VBA} code using {ChatGPT} for custom macros.
+                        </li>
+                        <li class="p-4 icon-feature rounded-lg flex items-start gap-4">
+                            <span class="text-green-500 font-bold">13.</span>
+                            <strong class="text-white">Deep Dive Q&A:</strong> Include 11 to 20 Questions of {Excel} covering complex scenarios and student questions.
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Instructor & Social Proof (Kept from original) -->
+        <section class="mb-20">
+            <h3 class="text-3xl sm:text-4xl font-bold text-center mb-12">
+                Meet Your Trainer
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Instructor Card -->
+                <div class="p-8 icon-feature rounded-xl shadow-2xl flex flex-col items-center text-center">
+                    <!-- Trainer Image - INSTRUCTOR IMAGE -->
+                    <img src="tra.jpeg" alt="Instructor Profile - Ankur Kumar Mandal" class="w-28 h-28 object-cover rounded-full mb-4 border-4 border-green-500">
+                    <h4 class="text-2xl font-bold text-white">Ankur Kumar Mandal</h4>
+                    <p class="text-green-400 font-semibold mb-3">NISM Certified, Educator at M.M. Institute</p>
+                    <p class="text-gray-400 text-sm">Ankur Kumar Mandal is a highly experienced educator and NISM Certified professional with 2+ years of experience, dedicated to simplifying complex data analysis. He focuses on practical, real-world applications of $\text{ChatGPT}$ to automate financial and data tasks in $\text{Excel}$.</p>
+                </div>
+
+                <!-- Testimonial -->
+                <div class="p-8 icon-feature rounded-xl shadow-2xl flex flex-col justify-center">
+                    <i data-lucide="quote" class="w-8 h-8 text-green-400 mb-4"></i>
+                    <p class="italic text-xl text-gray-300 mb-4">
+                        "The most practical tech workshop I've attended this year. I cut my monthly reporting time by 60% just by implementing the formula generation techniques from Lesson 4!"
+                    </p>
+                    <p class="font-semibold text-white">- Sarah K., Senior Financial Analyst</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Final CTA / Registration Form -->
+        <section id="enroll" class="py-16 bg-card-bg rounded-3xl shadow-2xl">
+            <div class="max-w-4xl mx-auto px-6">
+                <h3 class="text-4xl font-extrabold text-center mb-4 text-white">
+                    Ready to 10x Your Productivity?
+                </h3>
+                <p class="text-center text-2xl text-green-400 font-semibold mb-10">
+                    Join the {ChatGPT Excel} Course for just <span class="text-white line-through opacity-70">₹1,499</span> {₹99!}
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-10">
+                    <!-- Pricing and Guarantee -->
+                    <div class="md:w-1/2 space-y-6">
+                        <div class="p-6 bg-gray-800 rounded-xl">
+                            <h4 class="text-xl font-bold mb-2">What You Get:</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i> **5 Days** of Intensive Live Online Training (Sat/Sun in Nov)</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i> **12 Core Lessons** in {ChatGPT} and {Excel}</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i> {AI Prompt} {Cheat Sheet} (PDF)</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i> **2 Practice Files** (Hands-on training)</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i> **Final Exam & Certificate** of Completion</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i> **Lifetime** Access to HD Recordings</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i> Dedicated **Lifetime Support** from Trainer</li>
+                            </ul>
+                        </div>
+                        <div class="p-6 bg-yellow-900/40 border border-yellow-700 rounded-xl">
+                            <h4 class="text-xl font-bold text-yellow-300 mb-2">Our Risk-Free Guarantee</h4>
+                            <p class="text-yellow-200">
+                                If you don't feel you can immediately automate at least one major Excel task after this workshop, No questions asked.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <div class="md:w-1/2 p-6 bg-gray-800 rounded-xl shadow-lg border border-green-500/30">
+                        <!-- Instructions for WhatsApp Payment -->
+                        <div class="mb-4 p-3 bg-green-900/50 rounded-lg border border-green-700">
+                            <p class="text-sm font-semibold text-green-200 flex items-center gap-2">
+                                <i data-lucide="info" class="w-4 h-4"></i>
+                                STEP 1: Please fill out your registration details below.
+                                <br>
+                                STEP 2: Click the **WhatsApp** button to receive payment details (Phone: +91 9792656522).
+                            </p>
+                        </div>
+
+                        <!-- Form for Data Capture -->
+                        <!-- NOTE: The form will just log data to console since final action is external (WhatsApp) -->
+                        <form onsubmit="event.preventDefault(); console.log('Form Submitted. Data capture simulated.'); alert('Thank you for submitting your registration details! Now, please click the WhatsApp button below to finalize your payment.');" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                                <input type="text" id="name" required class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-green-500 focus:ring-green-500 text-white" placeholder="Jane Doe">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-green-500 focus:ring-green-500 text-white" placeholder="jane@example.com">
+                            </div>
+                            <div>
+                                <label for="level" class="block text-sm font-medium text-gray-300 mb-1">Current Excel Level</label>
+                                <select id="level" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-green-500 focus:ring-green-500 text-white">
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="beginner">Beginner (Knows {SUM}{AVG})</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="cta-button w-full text-white py-3 mt-4 rounded-xl text-xl font-bold shadow-xl hover:shadow-green-500/50">
+                                1. Submit Registration Details
+                            </button>
+                        </form>
+
+                        <!-- Final WhatsApp Payment Link -->
+                        <a href="https://wa.me/919792656522?text=I%20have%20submitted%20my%20registration%20details%20and%20I%20am%20ready%20to%20pay%20%E2%82%B999%20for%20the%20ChatGPT%20for%20Excel%20Workshop." target="_blank" class="whatsapp-button w-full text-white py-3 mt-4 rounded-xl text-xl font-bold shadow-xl hover:shadow-green-500/50 flex items-center justify-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-whatsapp"><path d="M19.05 4.95A10 10 0 0 0 12 2C6.477 2 2 6.477 2 12s4.477 10 10 10c1.725 0 3.336-.452 4.757-1.242l3.435 1.05-1.077-3.327A9.957 9.957 0 0 0 22 12c0-5.523-4.477-10-10-10zM17 15.69c-.19 0-.42-.06-.61-.16l-.08-.04c-.1-.05-.22-.09-.34-.09-.12 0-.25.04-.37.11l-.09.05c-.1.05-.24.11-.38.11s-.28-.05-.41-.12l-.08-.04c-.1-.05-.2-.07-.3-.07-.22 0-.4.1-.5.2-.13.1-.22.3-.22.54v.17c0 .24-.1.46-.23.6-.14.15-.35.25-.57.25s-.43-.1-.57-.25c-.13-.14-.23-.36-.23-.6v-2.06c0-.12.02-.24.06-.36.04-.12.1-.24.18-.35.08-.12.19-.22.3-.3.12-.08.25-.13.38-.13.3 0 .58.2.7.47.1.18.16.38.16.6v.05c0 .24.08.47.24.6.17.15.4.25.64.25.24 0 .46-.1.6-.24.14-.15.22-.38.22-.62v-.05c0-.24.07-.46.2-.6.13-.15.3-.24.5-.24.23 0 .45.1.58.24.13.15.2.37.2.6v2.06c0 .24-.1.47-.23.6-.13.15-.3.25-.5.25z"/></svg>
+                            2. Contact Trainer for Payment (WhatsApp)
+                        </a>
+                        
+                        <p class="text-xs text-center text-gray-500 mt-2">
+                            Secure registration managed via direct communication. You will be chatting with Ankur Kumar Mandal (Owner: 9792656522).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-8 mt-12 border-t border-gray-800">
+            <p class="text-sm text-gray-500">
+                &copy; 2025 AI Data Mastery. All rights reserved. | <a href="#" class="hover:text-green-400">Privacy Policy</a> | <a href="#" class="hover:text-green-400">Contact</a>
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript for Countdown Timer and Icon Initialization -->
+    <script>
+        // ====================================================================
+        // IMAGE UPLOAD GUIDANCE
+        // To use your own images (like your logo), simply upload the file
+        // and then replace the image source path in the HTML.
+        // The format is always: src="uploaded:{your_filename_here}"
+        //
+        // Example: If you upload a file named 'institute_logo.png',
+        // find the element: <img id="instituteLogo" src="uploaded:_INSTITUTE_LOGO_.png" ... >
+        // and update the source to: src="uploaded:institute_logo.png"
+        // ====================================================================
+
+        // --- COUNTDOWN TIMER LOGIC ---
+        const targetDate = new Date("November 1, 2025 00:00:00").getTime();
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Check if the target date has passed
+            if (distance < 0) {
+                countdownElement.innerHTML = '<span class="text-3xl text-green-400 font-bold">The course is now LIVE!</span>';
+                return;
+            }
+
+            // Time calculations for days, hours, minutes and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Function to create a segment of the countdown
+            const createSegment = (value, label) => `
+                <div class="countdown-box p-3 rounded-xl w-20 sm:w-24">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-green-400">${String(value).padStart(2, '0')}</div>
+                    <div class="text-xs sm:text-sm font-medium text-gray-400 mt-1">${label}</div>
+                </div>
+            `;
+
+            countdownElement.innerHTML = `
+                ${createSegment(days, 'Days')}
+                ${createSegment(hours, 'Hours')}
+                ${createSegment(minutes, 'Mins')}
+                ${createSegment(seconds, 'Secs')}
+            `;
+        }
+
+        // Run the countdown function immediately and then every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+    
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
